@@ -19,6 +19,15 @@ class UniversityParser:
     async def get_step_choices(self, step: Step, params: dict) -> dict[str, str]:
         return step.choices
 
+async def get_html(url: str, timeout=20) -> str:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(
+            url,
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=timeout,
+        ) as response:
+            return await response.text()
+
 
 # Отправка POST-запроса на url с данными
 async def post_form(url: str, data: dict, timeout=20) -> str:
